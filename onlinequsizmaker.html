@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Online Quiz Maker</title>
+    <style>
+        /* Add some basic styling to make the quiz look decent */
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .answer-options {
+            margin-left: 20px;
+        }
+        
+        .answer-option {
+            margin-bottom: 10px;
+        }
+        
+        .answer-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .submit-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .submit-button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Online Quiz Maker</h1>
+        <form id="quiz-form">
+            <!-- Question 1 -->
+            <div class="question">
+                <label class="question-label">What is the capital of France?</label>
+                <div class="answer-options">
+                    <div class="answer-option">
+                        <input type="radio" name="q1" value="Paris">
+                        <label>Paris</label>
+                    </div>
+                    <div class="answer-option">
+                        <input type="radio" name="q1" value="London">
+                        <label>London</label>
+                    </div>
+                    <div class="answer-option">
+                        <input type="radio" name="q1" value="Berlin">
+                        <label>Berlin</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <label class="question-label">What is the largest planet in our solar system?</label>
+                <div class="answer-options">
+                    <div class="answer-option">
+                        <input type="radio" name="q2" value="Earth">
+                        <label>Earth</label>
+                    </div>
+                    <div class="answer-option">
+                        <input type="radio" name="q2" value="Saturn">
+                        <label>Saturn</label>
+                    </div>
+                    <div class="answer-option">
+                        <input type="radio" name="q2" value="Jupiter">
+                        <label>Jupiter</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more questions here -->
+
+            <!-- Submit button -->
+            <input type="submit" value="Submit Quiz" class="submit-button">
+        </form>
+
+        <!-- Display quiz results -->
+        <div id="quiz-results"></div>
+    </div>
+
+    <script>
+        // Add event listener to submit button
+        document.getElementById("quiz-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get user answers
+            var answers = {};
+            var questions = document.querySelectorAll(".question");
+            questions.forEach(function(question) {
+                var questionId = question.querySelector("label").textContent;
+                var answer = question.querySelector("input[type='radio']:checked");
+                if (answer) {
+                    answers[questionId] = answer.value;
+                }
+            });
+
+            // Calculate quiz score
+            var score = 0;
+            Object.keys(answers).forEach(function(questionId) {
+                if (answers[questionId] === getCorrectAnswer(questionId)) {
+                    score++;
+                }
+            });
+
+            // Display quiz results
+            var resultsHtml = "You scored " + score + " out of " + questions.length + "!";
+            document.getElementById("quiz-results").innerHTML = resultsHtml;
+        });
+
+        // Function to get correct answer for a question
+        function getCorrectAnswer(questionId) {
+            // Hardcode correct answers for now
+            var correctAnswers = {
+                "What is the capital of France?": "Paris",
+                "What is the largest planet in our solar system?": "Jupiter"
+            };
+            return correctAnswers[questionId];
+        }
+    </script>
+</body>
+
+</html>

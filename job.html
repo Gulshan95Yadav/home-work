@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Job Board</title>
+    <style>
+        /* Global Styles */
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Job Board Styles */
+        
+        .job-board {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .job-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .job-list li {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .job-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .job-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .job-company {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .job-location {
+            font-size: 14px;
+            color: #999;
+        }
+        /* Search Bar Styles */
+        
+        .search-bar {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .search-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .search-button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Job Board -->
+    <div class="job-board">
+        <h1>Job Board</h1>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for jobs...">
+            <button class="search-button" id="search-button">Search</button>
+        </div>
+
+        <!-- Job List -->
+        <ul class="job-list" id="job-list">
+            <!-- Jobs will be rendered here -->
+        </ul>
+    </div>
+
+    <script>
+        // Job data
+        const jobs = [{
+                title: "Software Engineer",
+                company: "ABC Corporation",
+                location: "New York, NY"
+            }, {
+                title: "Marketing Manager",
+                company: " DEF Agency",
+                location: "Los Angeles, CA"
+            }, {
+                title: "Data Scientist",
+                company: "GHI Inc.",
+                location: "Chicago, IL"
+            },
+            // Add more jobs here...
+        ];
+
+        // Render jobs
+        const jobList = document.getElementById("job-list");
+        jobs.forEach((job) => {
+            const jobHTML = `
+				<li>
+					<h2 class="job-title">${job.title}</h2>
+					<p class="job-company">${job.company}</p>
+					<p class="job-location">${job.location}</p>
+				</li>
+			`;
+            jobList.innerHTML += jobHTML;
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById("search-input");
+        const searchButton = document.getElementById("search-button");
+
+        searchButton.addEventListener("click", () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredJobs = jobs.filter((job) => {
+                return job.title.toLowerCase().includes(searchTerm) ||
+                    job.company.toLowerCase().includes(searchTerm) ||
+                    job.location.toLowerCase().includes(searchTerm);
+            });
+
+            jobList.innerHTML = "";
+            filteredJobs.forEach((job) => {
+                const jobHTML = `
+					<li>
+						<h2 class="job-title">${job.title}</h2>
+						<p class="job-company">${job.company}</p>
+						<p class="job-location">${job.location}</p>
+					</li>
+				`;
+                jobList.innerHTML += jobHTML;
+            });
+        });

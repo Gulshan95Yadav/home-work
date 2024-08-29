@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Project Management Tool</title>
+    <style>
+        /* Internal CSS */
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .nav a:hover {
+            color: #ccc;
+        }
+        
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .project {
+            margin: 20px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .project h2 {
+            font-size: 18px;
+            margin-top: 0;
+        }
+        
+        .project p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .project button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .project button:hover {
+            background-color: #3e8e41;
+        }
+        
+        .tasks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .task {
+            margin: 20px;
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .task h3 {
+            font-size: 16px;
+            margin-top: 0;
+        }
+        
+        .task p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .task button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .task button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Project Management Tool</h1>
+    </header>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Tasks</a></li>
+        </ul>
+    </nav>
+    <main class="projects">
+        <div class="project">
+            <h2>Project 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>View Tasks</button>
+        </div>
+        <div class="project">
+            <h2>Project 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>View Tasks</button>
+        </div>
+        <div class="project">
+            <h2>Project 3</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>View Tasks</button>
+        </div>
+    </main>
+    <script>
+        // Internal JavaScript
+        let projects = [{
+            id: 1,
+            name: "Project 1",
+            tasks: []
+        }, {
+            id: 2,
+            name: "Project 2",
+            tasks: []
+        }, {
+            id: 3,
+            name: "Project 3",
+            tasks: []
+        }];
+        let currentProject = null;
+        document.addEventListener("DOMContentLoaded", function() {
+            let projectButtons = document.querySelectorAll(".project button");
+            projectButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    let projectId = button.parentNode.querySelector("h2").textContent;
+                    currentProject = projects.find(p => p.name === projectId);
+                    displayTasks();
+                });
+            });
+        });
+
+        function displayTasks() {
+            let taskList = document.querySelector(".tasks");
+            taskList.innerHTML = "";
+            currentProject.tasks.forEach(function(task) {
+                        let taskHTML = `
+          <div class
